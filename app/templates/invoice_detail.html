@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Invoice {{ inv.invoice_number }}</h1>
+{% if inv.status == "needs_review" %}
+<div class="note"><strong>Needs review:</strong> extraction was ambiguous, so no
+exceptions were generated automatically. Check the lines below against the
+original document, then confirm to run reconciliation.</div>
+<form method="post" action="/invoices/{{ inv.id }}/confirm"><button type="submit">Confirm extraction &amp; reconcile</button></form>
+{% endif %}
+<table>
+<tr><th>Date</th><td>{{ inv.invoice_date }}</td></tr>
+<tr><th>PO</th><td>{{ inv.po_number }}</td></tr>
+<tr><th>Subtotal</th><td>${{ inv.subtotal }}</td></tr>
+<tr><th>Tax</th><td>${{ inv.tax_amount }}</td></tr>
+<tr><th>Total</th><td>${{ inv.total_amount }}</td></tr>
+<tr><th>Status</th><td>{{ inv.status }}</td></tr>
+</table>
+<h2>Lines</h2>
+<table><tr><th>#</th><th>SKU</th><th>Description</th><th>Qty</th><th>Unit price</th><th>Total</th><th>Tax rate</th></tr>
+{% for ln in inv.lines %}<tr><td>{{ ln.line_no }}</td><td>{{ ln.sku }}</td><td>{{ ln.description }}</td><td>{{ ln.qty }}</td><td>${{ ln.unit_price }}</td><td>${{ ln.line_total }}</td><td>{{ ln.tax_rate }}</td></tr>{% endfor %}
+</table>
+<h2>Exceptions on this invoice</h2>
+{% if exceptions %}
+<table><tr><th>ID</th><th>Type</th><th>Status</th><th>Detected</th><th>Explanation</th></tr>
+{% for e in exceptions %}<tr><td><a href="/exceptions/{{ e.id }}">#{{ e.id }}</a></td><td>{{ e.kind }}</td><td>{{ e.status }}</td><td>${{ e.detected_amount }}</td><td>{{ e.explanation }}</td></tr>{% endfor %}
+</table>
+{% else %}<p>None.</p>{% endif %}
+{% endblock %}

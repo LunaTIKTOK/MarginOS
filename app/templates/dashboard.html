@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Dashboard — {{ org.name }}</h1>
+<div class="cards">
+  <div class="card"><div class="label">Identified exposure (potential)</div>
+    <div class="num">${{ dash.identified_exposure }}</div>
+    <div class="sub">Detected discrepancies on open + verified exceptions. Potential, not savings.</div></div>
+  <div class="card"><div class="label">Verified recoverable</div>
+    <div class="num">${{ dash.verified_recoverable }}</div>
+    <div class="sub">Human-verified amounts awaiting recovery.</div></div>
+  <div class="card"><div class="label">Realized savings</div>
+    <div class="num">${{ dash.realized_savings }}</div>
+    <div class="sub">Recovered/credited on resolved exceptions only.</div></div>
+  <div class="card"><div class="label">Open exceptions</div>
+    <div class="num">{{ dash.open_count }}</div>
+    <div class="sub">{{ dash.invoice_count }} invoices · {{ dash.po_count }} purchase orders</div></div>
+</div>
+
+<h2>Leakage by type</h2>
+{% if dash.by_kind %}
+<table><tr><th>Type</th><th>Detected total</th></tr>
+{% for k, v in dash.by_kind.items() %}<tr><td>{{ k }}</td><td>${{ v }}</td></tr>{% endfor %}
+</table>
+{% else %}<p>No exceptions detected yet. Upload invoices to begin.</p>{% endif %}
+
+<h2>Recent exceptions</h2>
+{% if recent %}
+<table><tr><th>ID</th><th>Type</th><th>Status</th><th>Detected</th><th>Explanation</th></tr>
+{% for e in recent %}<tr><td><a href="/exceptions/{{ e.id }}">#{{ e.id }}</a></td><td>{{ e.kind }}</td><td><span class="badge {{ e.status }}">{{ e.status }}</span></td><td>${{ e.detected_amount }}</td><td>{{ e.explanation }}</td></tr>{% endfor %}
+</table>
+{% else %}<p>None yet.</p>{% endif %}
+
+<h2>Recent invoices</h2>
+{% if invoices %}
+<table><tr><th>Number</th><th>Supplier</th><th>Date</th><th>Total</th><th>Status</th></tr>
+{% for i in invoices %}<tr><td><a href="/invoices/{{ i.id }}">{{ i.invoice_number }}</a></td><td>{{ i.supplier_id }}</td><td>{{ i.invoice_date }}</td><td>${{ i.total_amount }}</td><td>{{ i.status }}</td></tr>{% endfor %}
+</table>
+{% else %}<p>No invoices yet — <a href="/upload">upload your first document</a>.</p>{% endif %}
+
+<p style="margin-top:20px"><a class="btn" href="/upload">Upload documents</a>
+<a class="btn secondary" href="/reports">Reports</a></p>
+{% if sub %}<p class="sub">Billing status: {{ sub.status }}</p>{% endif %}
+{% endblock %}

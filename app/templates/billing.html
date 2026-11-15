@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Billing</h1>
+<p>Plan: <strong>MarginOS Monthly — ${{ price }}/month</strong> (commercial
+hypothesis under validation, not a proven price).</p>
+<p>Status: <span class="badge">{{ sub.status if sub else "none" }}</span></p>
+{% if configured %}
+<form method="post" action="/billing/checkout">
+  <button type="submit">Subscribe (Stripe sandbox — test mode)</button>
+</form>
+<p class="note">Sandbox only: test cards (e.g. 4242 4242 4242 4242) — no real charge.</p>
+{% else %}
+<div class="note"><strong>Stripe sandbox is not configured.</strong> Set
+STRIPE_SECRET_KEY (test key) and STRIPE_PRICE_ID to enable checkout. The app
+works fully without billing configured.</div>
+{% endif %}
+{% endblock %}

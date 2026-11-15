@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Supplier Agreements — agreed pricing</h1>
+<table><tr><th>Supplier</th><th>SKU</th><th>Description</th><th>Agreed price</th><th>Valid from</th><th>Valid to</th><th>Uncertain?</th></tr>
+{% for t in terms %}<tr><td>{{ t.supplier_id }}</td><td>{{ t.sku }}</td><td>{{ t.description }}</td><td>${{ t.agreed_unit_price }}</td><td>{{ t.valid_from }}</td><td>{{ t.valid_to }}</td><td>{{ t.uncertain }}</td></tr>{% endfor %}
+</table>
+{% if not terms %}<p>No agreement terms yet — <a href="/upload">upload a price list</a>.</p>{% endif %}
+{% endblock %}

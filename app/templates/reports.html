@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Reports</h1>
+<div class="cards">
+  <div class="card"><div class="label">Identified exposure (potential)</div><div class="num">${{ dash.identified_exposure }}</div></div>
+  <div class="card"><div class="label">Verified recoverable</div><div class="num">${{ dash.verified_recoverable }}</div></div>
+  <div class="card"><div class="label">Realized savings</div><div class="num">${{ dash.realized_savings }}</div></div>
+</div>
+<p style="margin-top:20px">
+<a class="btn" href="/reports/exceptions.csv">Download exceptions (CSV)</a>
+<a class="btn" href="/reports/reconciliation.pdf">Download reconciliation report (PDF)</a>
+<a class="btn secondary" href="/backup">Download full data backup (JSON)</a>
+</p>
+<p class="note">Reports list detected amounts with their evidence. "Realized
+savings" counts only exceptions a human verified and marked recovered.</p>
+{% endblock %}

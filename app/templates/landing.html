@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Find the margin your suppliers are taking.</h1>
+<p>MarginOS reconciles supplier invoices against your purchase orders and
+agreed contract pricing, and flags duplicate invoices, price and quantity
+discrepancies, unauthorized charges, and tax errors — with the evidence for
+every figure, reproducible to the cent.</p>
+<ul>
+  <li>Upload invoices (PDF, CSV, spreadsheet), purchase orders, and supplier agreements.</li>
+  <li>Every discrepancy carries its arithmetic — no invented savings, no estimated matches.</li>
+  <li>Review exceptions with the source document beside them; verify and resolve only by human approval.</li>
+  <li>Export reconciliation reports (CSV + PDF) and a full audit log.</li>
+</ul>
+<p><a class="btn" href="/register">Create an account</a>
+<a class="btn secondary" href="/login">Log in</a></p>
+<p class="note">Your data stays in your organization. MarginOS never shares
+one customer's documents with another, and never changes a financial record
+without your approval.</p>
+{% endblock %}

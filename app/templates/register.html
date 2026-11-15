@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Create your MarginOS account</h1>
+{% if error %}<div class="error">{{ error }}</div>{% endif %}
+<form method="post" action="/register">
+  <label>Organization name<input name="org_name" required></label>
+  <label>Work email<input name="email" type="email" required></label>
+  <label>Password (min 8 characters)<input name="password" type="password" required></label>
+  <button type="submit">Create account</button>
+</form>
+<p>Your organization is your tenant: nobody outside it can see your documents.</p>
+{% endblock %}

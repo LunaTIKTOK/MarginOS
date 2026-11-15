@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}MarginOS{% endblock %}</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="/dashboard">MarginOS</a>
+  <nav>
+    {% if user %}
+      <a href="/dashboard">Dashboard</a>
+      <a href="/upload">Upload</a>
+      <a href="/invoices">Invoices</a>
+      <a href="/purchase-orders">Purchase Orders</a>
+      <a href="/agreements">Agreements</a>
+      <a href="/exceptions">Exceptions</a>
+      <a href="/reports">Reports</a>
+      <a href="/billing">Billing</a>
+      <a href="/audit">Audit Log</a>
+      <form class="inline" method="post" action="/logout" style="display:inline">
+        <button type="submit" class="secondary" style="padding:4px 10px">Log out ({{ user.email }})</button>
+      </form>
+    {% else %}
+      <a href="/login">Log in</a>
+      <a href="/register">Register</a>
+    {% endif %}
+  </nav>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer>MarginOS — supplier invoice reconciliation. Figures shown are computed from your documents only; nothing is estimated or invented.</footer>
+</body>
+</html>

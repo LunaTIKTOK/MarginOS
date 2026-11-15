@@ -1,0 +1,29 @@
+body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; color: #1a202c; background: #f7fafc; }
+header { background: #1a365d; color: #fff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
+header a { color: #bee3f8; text-decoration: none; margin-left: 16px; }
+header .brand { font-weight: 700; font-size: 20px; color: #fff; }
+main { max-width: 1024px; margin: 24px auto; padding: 0 16px 48px; }
+h1 { font-size: 26px; } h2 { font-size: 20px; margin-top: 28px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; }
+.card .num { font-size: 30px; font-weight: 700; }
+.card .label { color: #4a5568; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+.card .sub { color: #718096; font-size: 13px; margin-top: 6px; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+th { background: #edf2f7; }
+a { color: #2b6cb0; }
+button, .btn { background: #2b6cb0; color: #fff; border: 0; padding: 9px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; text-decoration: none; display: inline-block; }
+button.secondary, .btn.secondary { background: #718096; }
+button.danger { background: #c53030; }
+input, select, textarea { width: 100%; padding: 9px; margin: 6px 0 14px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+form.inline { display: inline; } form.inline input { width: auto; }
+.error { background: #fed7d7; border: 1px solid #feb2b2; padding: 10px; border-radius: 6px; margin-bottom: 16px; }
+.note { background: #fefcbf; border: 1px solid #f6e05e; padding: 10px; border-radius: 6px; margin: 12px 0; font-size: 14px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; background: #ebf8ff; color: #2b6cb0; }
+.badge.open { background: #fed7d7; color: #9b2c2c; }
+.badge.verified { background: #fefcbf; color: #975a16; }
+.badge.resolved { background: #c6f6d5; color: #276749; }
+.badge.dismissed { background: #e2e8f0; color: #4a5568; }
+.mono { font-family: ui-monospace, monospace; font-size: 13px; background: #edf2f7; padding: 10px; border-radius: 6px; overflow-x: auto; white-space: pre-wrap; }
+footer { text-align: center; color: #a0aec0; font-size: 12px; padding: 24px; }

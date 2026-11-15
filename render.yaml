@@ -1,0 +1,32 @@
+# Render deployment for MarginOS (free tier, $0).
+# The owner connects this repo in the Render dashboard (owner step — the
+# agent has no Render account access). After connecting, Render builds from
+# the Dockerfile and provisions the free Postgres below.
+services:
+  - type: web
+    name: marginoS
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: marginoS-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      # Stripe sandbox (test keys only). Leave empty until test keys exist.
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PRICE_ID
+        sync: false
+    healthCheckPath: /health
+
+databases:
+  - name: marginoS-db
+    plan: free
+    databaseName: marginoS

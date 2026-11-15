@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Exceptions</h1>
+<p>Filter:
+<a href="/exceptions">all</a> ·
+<a href="/exceptions?status=open">open</a> ·
+<a href="/exceptions?status=verified">verified</a> ·
+<a href="/exceptions?status=resolved">resolved</a> ·
+<a href="/exceptions?status=dismissed">dismissed</a></p>
+<table><tr><th>ID</th><th>Type</th><th>Status</th><th>Detected</th><th>Verified</th><th>Explanation</th></tr>
+{% for e in exceptions %}<tr><td><a href="/exceptions/{{ e.id }}">#{{ e.id }}</a></td><td>{{ e.kind }}</td><td><span class="badge {{ e.status }}">{{ e.status }}</span></td><td>${{ e.detected_amount }}</td><td>{% if e.verified_amount is not none %}${{ e.verified_amount }}{% endif %}</td><td>{{ e.explanation }}</td></tr>{% endfor %}
+</table>
+{% if not exceptions %}<p>No exceptions{% if status %} with status "{{ status }}"{% endif %}.</p>{% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Exception #{{ exc.id }} — {{ exc.kind }}</h1>
+<p><span class="badge {{ exc.status }}">{{ exc.status }}</span>
+Detected: <strong>${{ exc.detected_amount }}</strong>
+{% if exc.verified_amount is not none %} · Verified: <strong>${{ exc.verified_amount }}</strong>{% endif %}</p>
+<p>{{ exc.explanation }}</p>
+{% if inv %}<p>Invoice: <a href="/invoices/{{ inv.id }}">{{ inv.invoice_number }}</a> (total ${{ inv.total_amount }})</p>{% endif %}
+<h2>Evidence — inputs this figure was computed from</h2>
+<div class="mono">{{ evidence }}</div>
+{% if exc.status == "open" %}
+<h2>Verify</h2>
+<p>Confirm the real recoverable amount (0 – detected). Nothing becomes
+"savings" until you verify it here and resolve it below.</p>
+<form method="post" action="/exceptions/{{ exc.id }}/verify">
+  <label>Verified amount (USD)<input name="verified_amount" value="{{ exc.detected_amount }}" required></label>
+  <button type="submit">Verify amount</button>
+</form>
+<form method="post" action="/exceptions/{{ exc.id }}/dismiss">
+  <label>Dismiss — reason<input name="note" placeholder="e.g. price increase was agreed by email"></label>
+  <button type="submit" class="secondary">Dismiss (not leakage)</button>
+</form>
+{% endif %}
+{% if exc.status == "verified" %}
+<h2>Resolve</h2>
+<form method="post" action="/exceptions/{{ exc.id }}/resolve">
+  <label>Resolution note<input name="note" placeholder="e.g. supplier credited $X on invoice Y"></label>
+  <button type="submit">Mark recovered — realized savings ${{ exc.verified_amount }}</button>
+</form>
+{% endif %}
+{% if exc.resolution_note %}<p><strong>Resolution:</strong> {{ exc.resolution_note }}</p>{% endif %}
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Documents</h1>
+<table><tr><th>File</th><th>Type</th><th>Uploaded</th><th>Extraction</th><th>Confidence</th><th>Notes</th></tr>
+{% for d in docs %}<tr><td>{{ d.filename }}</td><td>{{ d.kind }}</td><td>{{ d.uploaded_at }}</td><td>{{ d.extraction_status }}</td><td>{{ d.extraction_confidence }}</td><td>{{ d.extraction_notes }}</td></tr>{% endfor %}
+</table>
+{% if not docs %}<p>No documents yet.</p>{% endif %}
+{% endblock %}

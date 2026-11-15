@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Upload documents</h1>
+{% if error %}<div class="error">{{ error }}</div>{% endif %}
+<form method="post" action="/upload" enctype="multipart/form-data">
+  <label>Document type
+    <select name="kind">
+      <option value="invoice">Supplier invoice</option>
+      <option value="po">Purchase order</option>
+      <option value="agreement">Supplier agreement / price list</option>
+      <option value="receipt">Goods receipt (received quantities)</option>
+    </select></label>
+  <label>File (PDF, CSV, or XLSX)<input type="file" name="file" required></label>
+  <button type="submit">Upload and process</button>
+</form>
+<div class="note"><strong>Expected columns (CSV/XLSX):</strong>
+invoice — supplier, invoice_number, date, po_number, sku, description, qty, unit_price, tax_rate;
+purchase order — supplier, po_number, date, sku, qty, unit_price;
+agreement — supplier, sku, description, agreed_price, valid_from;
+receipt — po_number, sku, qty (received), date.
+PDF invoices are parsed from their text layer; anything the parser cannot pin
+down is flagged for your review instead of guessed.</div>
+<p><a href="/documents">View all documents</a></p>
+{% endblock %}

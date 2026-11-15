@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Audit Log</h1>
+<p>Every correction, approval, and system decision in your organization.</p>
+<table><tr><th>Time</th><th>Action</th><th>Entity</th><th>User</th><th>Detail</th></tr>
+{% for e in entries %}<tr><td>{{ e.created_at }}</td><td>{{ e.action }}</td><td>{{ e.entity_type }} {{ e.entity_id or "" }}</td><td>{{ e.user_id or "" }}</td><td class="mono">{{ e.detail_json }}</td></tr>{% endfor %}
+</table>
+{% if not entries %}<p>No audit entries yet.</p>{% endif %}
+{% endblock %}

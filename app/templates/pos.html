@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Purchase Orders</h1>
+<table><tr><th>PO number</th><th>Supplier</th><th>Date</th><th>Lines</th></tr>
+{% for p in pos %}<tr><td>{{ p.po_number }}</td><td>{{ p.supplier_id }}</td><td>{{ p.order_date }}</td><td>{{ p.lines|length }}</td></tr>{% endfor %}
+</table>
+{% if not pos %}<p>No purchase orders yet — <a href="/upload">upload one</a>.</p>{% endif %}
+{% endblock %}
